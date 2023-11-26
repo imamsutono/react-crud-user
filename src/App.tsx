@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { Alert, Modal } from 'antd'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 import { Container, DataTable, Flex } from './components'
 import { Pagination } from './constants/datatable'
@@ -8,7 +8,6 @@ import { Pagination } from './constants/datatable'
 const App: FC = () => {
   const [data, setData] = useState([])
   const [total, setTotal] = useState(0)
-  const [perPage, setPerPage] = useState(0)
   const [loading, setLoading] = useState(false)
 
   const paginationInit: Pagination = {links: []}
@@ -17,15 +16,16 @@ const App: FC = () => {
   const [actionStatus, setActionStatus] = useState('')
   const [actionMessage, setActionMessage] = useState('')
 
+  const [searchParams] = useSearchParams()
   const fetchUsers = async () => {
     setLoading(true)
 
-    const response = await axios.get('http://localhost:8000/api/user')
+    const currentPage = searchParams.get('page') || 1
+    const response = await axios.get(`http://localhost:8000/api/user?page=${currentPage}`)
     const { data } = response
 
     setData(data.data)
     setTotal(data.total)
-    setPerPage(data.per_page)
     setPagination(data)
     setLoading(false)
   }
@@ -52,7 +52,19 @@ const App: FC = () => {
 
   const params = useLocation()
   useEffect(() => {
-    fetchUsers()
+    const fetchUser = async () => {
+      setLoading(true)
+  
+      const currentPage = searchParams.get('page') || 1
+      const response = await axios.get(`http://localhost:8000/api/user?page=${currentPage}`)
+      const { data } = response
+  
+      setData(data.data)
+      setTotal(data.total)
+      setPagination(data)
+      setLoading(false)
+    }
+    fetchUser()
 
     const { state } = params
     if (state?.status) {
@@ -60,7 +72,7 @@ const App: FC = () => {
       setActionMessage(state?.message)
       window.history.replaceState({}, document.title)
     }
-  }, [params])
+  }, [searchParams, params])
 
   return (
     <Container>
@@ -77,7 +89,6 @@ const App: FC = () => {
       <DataTable
         data={data}
         pagination={pagination}
-        perPage={perPage}
         total={total}
         onClickDelete={openDeleteModal}
       />

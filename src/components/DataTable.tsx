@@ -12,7 +12,6 @@ interface UserData {
 interface TableProps {
   data: UserData[];
   pagination: Pagination;
-  perPage: number;
   total: number;
   onClickDelete: (id: number) => void;
 }
@@ -22,7 +21,7 @@ const styles: CSSProperties = {
 }
 
 const DataTable: FC<TableProps> = ({
-  data, pagination, perPage, total, onClickDelete
+  data, pagination, total, onClickDelete
 }) => (
   <>
     <table style={styles}>
@@ -52,14 +51,17 @@ const DataTable: FC<TableProps> = ({
     </table>
 
     <Flex justify="space-between">
-      <span>Showing {perPage} of {total} data</span>
+      <span>Showing {data.length} of {total} data</span>
       <div>
-        {pagination.links.map(({ label }, index) => (
-          <button
-            dangerouslySetInnerHTML={{ __html: label }}
-            key={index}
-          />
-        ))}
+        {pagination.links.map(({ label, url }, index) => {
+          const linkUrl = url ? `?${url.split('?')[1]}` : ''
+
+          return (
+            <Link to={linkUrl} key={index}>
+              <button dangerouslySetInnerHTML={{ __html: label }} />
+            </Link>
+          )
+        })}
       </div>
     </Flex>
   </>
