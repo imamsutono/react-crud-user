@@ -35,7 +35,6 @@ const AddUser: FC = () => {
             message: response.data.message
           }
         })
-        // console.log(response.data.message)
       })
       .catch(({ response }) => {
         setLoading(false)
@@ -79,9 +78,7 @@ const AddUser: FC = () => {
           Submit
         </Button>
         <Link to="/">
-          <Button htmlType="submit">
-            Cancel
-          </Button>
+          <Button>Cancel</Button>
         </Link>
       </Form>
     </Container>
