@@ -1,9 +1,11 @@
 import { FC, useEffect, useState } from 'react'
-import { Alert, Modal } from 'antd'
+import { Alert, Button, Modal, Typography } from 'antd'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 import { Container, DataTable, Flex } from './components'
 import { Pagination } from './constants/datatable'
+
+const { Title } = Typography
 
 const App: FC = () => {
   const [data, setData] = useState([])
@@ -77,10 +79,10 @@ const App: FC = () => {
   return (
     <Container>
       <Flex justify="space-between" align="center">
-        <h1>The Digital Cellar</h1>
+        <Title>The Digital Cellar</Title>
         
         <Link to="/add">
-          <button>+ Add New User</button>
+          <Button type="primary">+ Add New User</Button>
         </Link>
       </Flex>
 
@@ -91,8 +93,8 @@ const App: FC = () => {
         pagination={pagination}
         total={total}
         onClickDelete={openDeleteModal}
+        loading={loading}
       />
-      {loading ? 'Fetching users...' : null}
     </Container>
   )
 }
