@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { Alert } from 'antd'
+import { Alert, Modal } from 'antd'
 import { Link, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { Container, DataTable, Flex } from './components'
@@ -28,6 +28,26 @@ const App: FC = () => {
     setPerPage(data.per_page)
     setPagination(data)
     setLoading(false)
+  }
+
+  const openDeleteModal = (id: number) => {
+    Modal.warning({
+      title: 'Delete User',
+      content: 'Are you sure want to delete the user?',
+      onOk: () => submitDelete(id),
+    })
+  }
+
+  const submitDelete = (id: number) => {
+    axios.delete(`http://localhost:8000/api/user/${id}`)
+      .then(response => {
+        setActionStatus('success')
+        setActionMessage(response.data.message)
+        fetchUsers()
+      })
+      .catch(err => {
+        console.error(err)
+      })
   }
 
   const params = useLocation()
@@ -59,6 +79,7 @@ const App: FC = () => {
         pagination={pagination}
         perPage={perPage}
         total={total}
+        onClickDelete={openDeleteModal}
       />
       {loading ? 'Fetching users...' : null}
     </Container>

@@ -13,13 +13,16 @@ interface TableProps {
   pagination: Pagination;
   perPage: number;
   total: number;
+  onClickDelete: (id: number) => void;
 }
 
 const styles: CSSProperties = {
   width: '100%'
 }
 
-const DataTable: FC<TableProps> = ({ data, pagination, perPage, total }) => (
+const DataTable: FC<TableProps> = ({
+  data, pagination, perPage, total, onClickDelete
+}) => (
   <>
     <table style={styles}>
       <thead>
@@ -36,7 +39,9 @@ const DataTable: FC<TableProps> = ({ data, pagination, perPage, total }) => (
             <td>{email}</td>
             <td>
               <button>Edit</button>
-              <button>Delete</button>
+              <button onClick={() => onClickDelete(id)}>
+                Delete
+              </button>
             </td>
           </tr>
         ))}
