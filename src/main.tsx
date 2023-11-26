@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 import App from './App.tsx'
 import AddUser from './pages/add_user.tsx'
+import EditUser from './pages/edit_user.tsx'
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: '/add',
     element: <AddUser />
+  },
+  {
+    path: '/edit/:userId',
+    element: <EditUser />
   }
 ])
 

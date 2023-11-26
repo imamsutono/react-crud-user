@@ -1,4 +1,5 @@
 import { CSSProperties, FC } from 'react'
+import { Link } from 'react-router-dom'
 import { Flex } from '.'
 import { Pagination } from '../constants/datatable'
 
@@ -38,7 +39,9 @@ const DataTable: FC<TableProps> = ({
             <td>{name}</td>
             <td>{email}</td>
             <td>
-              <button>Edit</button>
+              <Link to={`/edit/${id}`}>
+                <button>Edit</button>
+              </Link>
               <button onClick={() => onClickDelete(id)}>
                 Delete
               </button>
