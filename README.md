@@ -14,3 +14,17 @@ React application with management user features.
 3. Run `npm install` or `yarn install` to install the dependencies.
 4. Run `vite dev` to run the application.
 5. Open the application in `http://localhost:5173/`
+
+## Application Screenshot
+
+### User list
+![User list](./screenshots/list-user.png)
+
+### Create a new user
+![Add user form](./screenshots/add-user.png)
+
+### Edit user
+![Edit user form](./screenshots/edit-user.png)
+
+### Delete user
+![Delete user popup](./screenshots/delete-user.png)
