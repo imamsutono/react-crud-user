@@ -28,3 +28,7 @@ React application with management user features.
 
 ### Delete user
 ![Delete user popup](./screenshots/delete-user.png)
+
+## Supporting documents
+1. [Product Requirement Document](https://docs.google.com/document/d/12_tLr3rInN8tx4vcSzLZxesBiwg5smWESbF_Xntp8Mg/edit?usp=sharing)
+2. [Technical Requirement Document](https://docs.google.com/document/d/1l8x8xrsbfXlCe2I1bii3SkBVG5xnK7pBP0e6FDZ9pQY/edit?usp=sharing)
